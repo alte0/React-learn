@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Article } from './Article'
 
 class News extends React.Component {
@@ -7,7 +8,7 @@ class News extends React.Component {
     let newsTemplate = null
 
     if (data.length) {
-      newsTemplate = data.map(function (item, index) {
+      newsTemplate = data.map(function (item) {
         return <Article key={item.id} data={item} />
       })
     } else {
@@ -16,17 +17,24 @@ class News extends React.Component {
 
     return newsTemplate
   }
-
   render() {
     const { data } = this.props
 
     return (
-      <main className="news">
+      <div className="news">
         {this.renderNews()}
-        {data.length ? <strong>Всего новостей: {data.length}</strong> : null}
-      </main>
+        {data.length ? (
+          <strong className={'news__count'}>
+            Всего новостей: {data.length}
+          </strong>
+        ) : null}
+      </div>
     )
   }
 }
 
-export {News}
+News.propTypes = {
+  data: PropTypes.array.isRequired,
+}
+
+export { News }
